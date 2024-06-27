@@ -6,23 +6,33 @@ import Profile from './pages/Profile';
 import Callback from './pages/Callback';
 
 function App() {
-  const { isAuthenticated } = useAuth0();
+  const auth0 = useAuth0();
+  console.log('app route: auth0 hooks', auth0);
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  console.log('app route', isAuthenticated);
+  console.log('app route: isAuthenticated', isAuthenticated);
+
+  if (isLoading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <Routes>
-      <Route path='/home' element={<Home />} />
+      <Route path="/home" element={<Home />} />
       <Route
-        path='/dashboard'
-        element={isAuthenticated ? <Dashboard /> : <Navigate to='/home' />}
+        path="/dashboard"
+        element={isAuthenticated ? <Dashboard /> : <Navigate to="/home" />}
       />
       <Route
-        path='/profile'
-        element={isAuthenticated ? <Profile /> : <Navigate to='/home' />}
+        path="/profile"
+        element={isAuthenticated ? <Profile /> : <Navigate to="/home" />}
       />
-      <Route path='/callback' element={<Callback />} />
-      <Route path='*' element={<Navigate to='/home' />} />
+      <Route path="/callback" element={<Callback />} />
+      <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );
 }

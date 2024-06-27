@@ -6,7 +6,6 @@ type Auth0ProviderProps = {
 };
 
 const AuthProvider: React.FC<Auth0ProviderProps> = ({ children }) => {
-  console.log('auth provider', window.location.origin);
   return (
     <Auth0Provider
       domain={import.meta.env.VITE_APP_AUTH0_DOMAIN as string}
